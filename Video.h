@@ -4,6 +4,8 @@
 #include "BaseMultimediaBox.h"
 #include <memory>
 
+#include <stdlib.h>
+
 class Video : public BaseMultimediaBox{
 
 private:

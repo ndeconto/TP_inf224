@@ -30,18 +30,19 @@ public :
 
     Video_ptr createVideo(float duration=0., std::string name="",
                           std::string pathname = "");
-	
+
     Movie_ptr createMovie(const int * duration_array=nullptr, unsigned int length=0,
                           std::string name="", std::string pathname="");
-	
+
     Group_ptr createGroup(std::string name="");
 
 
-    Multimedia_ptr search(std::string name) const;
+    Multimedia_ptr searchObject(std::string name);
+    Group_ptr searchGroup(std::string name);
 
-    bool display(std::string name) const;
+    bool display(std::string name, std::ostream& stream) const;
 
-    void play(std::string name, std::ostream& stream) const;
+    bool play(std::string name) const;
 
 
 };

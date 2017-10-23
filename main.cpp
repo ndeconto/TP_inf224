@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  
+//
 
 #include <iostream>
 #include <array>
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 
 
     /** -----------------------       ARRAY TEST    ----------------------------**/
-    std::cout << " \n\n\t\t *** ARRAY TEST *** \n";
+    std::cout << " \n\n\t\t *** ARRAY TEST *** \n\n";
 
     Video *v1 = new Video(0, "v1");
     Video *v2 = new Video(12, "v2");
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     Picture *p1 = new Picture();
     Picture *p2 = new Picture(2, 5.7, "p2");
 
-    std::array<BaseMultimediaBox*, 4> media_array {v1, v2, p1, p2};
+    std::array<BaseMultimediaBox*, 4> media_array = {v1, v2, p1, p2};
 
     for (unsigned int i = 0; i < media_array.size(); i++) {
         media_array[i]->display(std::cout);
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 
 
     /** -----------------------     COPY TEST    ------------------------------**/
-    std::cout << " \n\n\t\t *** COPY *** \n";
+    std::cout << " \n\n\t\t *** COPY *** \n\n";
 
     int duration[] = {1, 2, 3, 4};
     int duration2[] = {5, 7};
@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
 
     /** -----------------------       GROUPS    ------------------------------**/
 
-    std::cout << " \n\n\t\t *** GROUPS *** \n";
+    std::cout << " \n\n\t\t *** GROUPS *** \n\n";
     Group<BaseMultimediaBox*>* g = new Group<BaseMultimediaBox*>("foo");
     g->push_back(v1);
     g->push_back(p1);
@@ -88,18 +88,42 @@ int main(int argc, char* argv[]) {
 
 
     /** -----------------------     SMART POINTERS ---------------------------**/
-    
-    std::cout << " \n\n\t\t *** SMART POINTERS *** \n";
+
+    std::cout << " \n\n\t\t *** SMART POINTERS *** \n\n";
     Video_ptr v1_ptr(v1);
     Picture_ptr p1_ptr(p1);
     Movie_ptr m1_ptr(m1);
-    
+
     Group<shared_Multimedia_ptr>* g_smart = new Group<shared_Multimedia_ptr>("smart");
 
     g_smart->push_back(v1_ptr);
     g_smart->push_back(p1_ptr);
     g_smart->push_back(m1_ptr);
     g_smart->display(std::cout);
+
+
+    /** --------------------------    MAPPING    ------------------------------**/
+    std::cout << " \n\n\t\t *** MAPPING *** \n\n";
+
+    MultimediaMap database;
+
+    Picture_ptr data_p1 = database.createPicture(1, 2, "first Picture", ".");
+    Picture_ptr data_p2 = database.createPicture(3, 4, "first Picture", "/");
+    Picture_ptr data_p3 = database.createPicture();
+
+    Video_ptr data_v1 = database.createVideo(5, "coucou", "home/");
+    Movie_ptr data_m1 = database.createMovie((int *) duration, 3, "Harry Potter",
+                                              "~/Movies/");
+
+    database.searchObject("coucou")->display(std::cout);
+    database.searchObject("Harry Potter")->display(std::cout);
+    database.display("fkgj", std::cout);
+    database.display("first Picture", std::cout);
+
+
+    /** --------------------------    MAPPING    ------------------------------**/
+    std::cout << " \n\n\t\t *** CLEANING *** \n\n";
+
 
     delete v2;
     delete p2;
@@ -108,18 +132,6 @@ int main(int argc, char* argv[]) {
 
     /* other objects are automatically freed */
     /* we can use valgrind to check */
-
-
-
-
-    /** --------------------------    MAPPING    ------------------------------**/
-
-    MultimediaMap database;
-
-    Picture_ptr data_p1 = database.createPicture(1, 2, "first Picture", ".");
-    Picture_ptr data_p2 = database.createPicture(3, 4, "first Picture", "/");
-    Picture_ptr data_p3 = database.createPicture();
-
 
 
 
