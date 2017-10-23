@@ -1,0 +1,4 @@
+*.o
+myprog
+TP_1.*
+depend-myprog
